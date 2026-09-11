@@ -1,0 +1,19 @@
+name: Build Fabric Mod
+on: [workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Mod File
+        run: |
+          mkdir -p build/libs
+          zip -r build/libs/NoArrowIFrames-1.0.0.jar fabric.mod.json noarrow.mixins.json src/
+          
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: no-arrow-iframes-jar
+          path: build/libs/*.jar
